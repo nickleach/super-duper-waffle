@@ -44,7 +44,7 @@ Example Failure (Code 422 - Unprocessable Entity):
 
 #### Logging In with an Existing User
 
-**Route:** `POST admin/users/login`
+**Route:** `POST api/users/login`
 
 **Params:**
 
@@ -111,7 +111,7 @@ Example Success (Code 200 -OK):
 
 ```json
 {
-  "message" : "Succesfully Deleted"
+  "message" : "Successfully Deleted"
 }
 ```
 
@@ -133,10 +133,7 @@ Example Success (Code 200 -OK):
 |  Name        | String |
 |  Description | String |
 |  Type        | String |
-|  Image       | String |
-|  City        | String |
-|  State       | String |
-
+|  Location    | String |
 
 Note that names must be unique
 
@@ -144,7 +141,7 @@ Example success (Code 201 - Created):
 
 ```json
 {
-  "message": "Member Created!"
+  "message": "Restaurant Saved!"
 }
 ```
 Example Failure (Code 422 - Unprocessable Entity):
@@ -182,6 +179,6 @@ Example Success (Code 200 -OK):
 
 ```json
 {
-  "message" : "Succesfully Deleted"
+  "message" : "Successfully Deleted"
 }
 ```

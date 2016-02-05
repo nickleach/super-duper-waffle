@@ -30,12 +30,11 @@ app.use(express.static(__dirname + '/public'));
 
 // API ROUTES ------------------------
 var userRoutes = require('./app/routes/userRoutes')(app, express);
+var restaurantRoutes = require('.app/routes/restaurantRoutes')(app, express);
 
 app.use('/api', userRoutes);
-app.use('/api', contactRoutes);
-app.use('/api', testimonialRoutes);
-app.use('/api', pricingRoutes);
-app.use('/api', itemRoutes);
+app.use('/api', restaurantRoutes);
+
 // Exception handling
 app.use(function(err, req, res, next) {
   if(err.status !== 404) {
