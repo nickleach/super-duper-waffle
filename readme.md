@@ -2,7 +2,7 @@
 
 > API for keeping track of our favorite lunch places. Need to add calendar so we can schedule potlucks and stuff!
 
-* Currently running on: (no deployment yet)
+* Currently running on: https://limitless-brook-92022.herokuapp.com/
 
 Routes in the User Registration section are authenticated
 by Username/Password unless otherwise mentioned.
