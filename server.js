@@ -30,7 +30,7 @@ app.use(express.static(__dirname + '/public'));
 
 // API ROUTES ------------------------
 var userRoutes = require('./app/routes/userRoutes')(app, express);
-var restaurantRoutes = require('.app/routes/restaurantRoutes')(app, express);
+var restaurantRoutes = require('./app/routes/restaurantRoutes')(app, express);
 
 app.use('/api', userRoutes);
 app.use('/api', restaurantRoutes);
