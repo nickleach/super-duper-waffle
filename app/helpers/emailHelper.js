@@ -45,8 +45,3 @@ function sendElasticEmail(to, subject, body_text, body_html, from, fromName) {
 }
 
 module.exports = sendElasticEmail;
-
-
-//sendElasticEmail('test@test.com', 'My Subject', 'My Text', 'My HTML', 'youremail@yourdomain.com', 'Your Name');
-
-

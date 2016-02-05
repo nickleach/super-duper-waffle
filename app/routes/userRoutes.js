@@ -1,11 +1,9 @@
-var bodyParser = require('body-parser'); 	// get body-parser
-var User       = require('../models/user');
-var jwt        = require('jsonwebtoken');
-var config     = require('../../config');
-var sendMail   = require('../helpers/emailHelper');
+var bodyParser  = require('body-parser');
+var User        = require('../models/user');
+var jwt         = require('jsonwebtoken');
+var config      = require('../../config');
+var sendMail    = require('../helpers/emailHelper');
 var verifyToken = require('../helpers/tokenHelper');
-
-// super secret for creating tokens
 var superSecret = config.secret;
 
 
@@ -53,62 +51,59 @@ module.exports = function(app, express) {
 	          id : user._id
 	        });
 	      }
-
 	    }
-
 	  });
 	});
 
-	userRouter.post('/forgotPassword', function(req, res, next) {
-
-	  // find the user
-	  User.findOne({
-	    email: req.body.email
-	  }).select('name username password _id').exec(function(err, user) {
-
-	    if (err) next(err);
-
-	    // no user with that username was found
-	    if (!user) {
-	      var notFound = new Error("Could not find user with the email address provided");
-            notFound.status = 404;
-            return next(notFound);
-	    } else if (user) {
-
-	        // create a token
-	        var token = jwt.sign({
-	        	id: user._id
-	        }, superSecret, {
-	          expiresIn: 172800 // expires in 24 hours
-	        });
-
-	        var email = "<p>Your password reset request from ProLowPutting.com.</p> \
-	        <p>Please go to " + config.appUrl + "/resetPassword/" + user._id + '/' + token + " to choose a new password</p>";
-
-	        var response = sendMail(req.body.email, "ProLowPutting Password Reset", email, email, "noreply@prolowputting.com", "ProLowPutting" );
-
-	        console.log("Password reset requested for user:" + user);
-
-	        if(response){
-	        	var emailFailed = new Error("Something went wrong with the email server!");
-	        	console.log("Password reset email failed " + response);
-
-            emailFailed.status = 500;
-            return next(emailFailed);
-	        }
-	        else{
-	        	response = "A link to reset your password has been sent to your email address.";
-	        }
-	        // return the information including token as JSON
-	        res.json({
-	          success: true,
-	          message: response
-	        });
-
-	    }
-
-	  });
-	});
+	// userRouter.post('/forgotPassword', function(req, res, next) {
+	//
+	//   // find the user
+	//   User.findOne({
+	//     email: req.body.email
+	//   }).select('name username password _id').exec(function(err, user) {
+	//
+	//     if (err) next(err);
+	//
+	//     // no user with that username was found
+	//     if (!user) {
+	//       var notFound = new Error("Could not find user with the email address provided");
+    //         notFound.status = 404;
+    //         return next(notFound);
+	//     } else if (user) {
+	//
+	//         // create a token
+	//         var token = jwt.sign({
+	//         	id: user._id
+	//         }, superSecret, {
+	//           expiresIn: 172800 // expires in 24 hours
+	//         });
+	//
+	//         var email = "<p>Your password reset request from Food stuff.</p> \
+	//         <p>Please go to " + config.appUrl + "/resetPassword/" + user._id + '/' + token + " to choose a new password</p>";
+	//
+	//         var response = sendMail(req.body.email, "Password Reset", email, email, "noreply@fake.com", "Food app" );
+	//
+	//         console.log("Password reset requested for user:" + user);
+	//
+	//         if(response){
+	//         	var emailFailed = new Error("Something went wrong with the email server!");
+	//         	console.log("Password reset email failed " + response);
+	//
+    //         emailFailed.status = 500;
+    //         return next(emailFailed);
+	//         }
+	//         else{
+	//         	response = "A link to reset your password has been sent to your email address.";
+	//         }
+	//         res.json({
+	//           success: true,
+	//           message: response
+	//         });
+	//
+	//     }
+	//
+	//   });
+	// });
 
 	// route middleware to verify a token
 	userRouter.use('/users', function(req, res, next) {
@@ -159,7 +154,6 @@ module.exports = function(app, express) {
 				if (err) {
 					return next(err);
 				}
-
 				// return the users
 				res.json(users);
 			});
@@ -220,8 +214,6 @@ module.exports = function(app, express) {
         if(err) {
             next(err);
          }
-
-
 				res.json({ message: 'Successfully deleted' });
 			});
 		});
